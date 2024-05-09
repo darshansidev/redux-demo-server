@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const port = process.env.PORT || 3001;
 
 //-----------route define -----------------
@@ -10,6 +11,7 @@ const errorMiddleware = require('./src/middlewares/error.middleware');
 
 // ------------MiddleWare------------------------------
 app.use(express.json())
+app.use(cors());
 
 //--------------Route Call -----------------
 app.use('/todo', todoRoute, errorMiddleware);
