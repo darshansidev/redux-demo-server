@@ -18,9 +18,8 @@ const getTodoService = async () => {
 
     const data = await todoModel.find();
 
-    const result = data.length > 0 ? data : 'No Todo Available';
 
-    return result;
+    return data;
 }
 
 const updateTodoService = async (todoId, todoItem) => {

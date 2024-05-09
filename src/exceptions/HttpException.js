@@ -7,5 +7,4 @@ const HttpException = (status, message) => {
 
 module.exports = {
     HttpException
-
 };
