@@ -5,8 +5,8 @@ const todoController = require('../controllers/todo.controller');
 
 router.get('/get-todo-list', todoController.getTodo);
 router.post('/add-todo-list', validate(createTodo), todoController.createTodo);
-router.put('/update-todo-list', validate(todoId), validate(updateTodo), todoController.updateTodo);
-router.delete('/delete-todo-list', validate(todoId), todoController.createTodo);
+router.put('/update-todo-list/:todoId', validate(todoId), validate(updateTodo), todoController.updateTodo);
+router.delete('/delete-todo-list/::todoId', validate(todoId), todoController.createTodo);
 
 
 module.exports = router;
