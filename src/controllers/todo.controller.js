@@ -1,33 +1,48 @@
 const todoServices = require('../services/todo.service');
 
-const createTodo = (req, res, next) => {
+const createTodo = async (req, res, next) => {
     try {
+        const todoItem = req.body;
 
-        res.status(200).json({ message: "Todo Created" });
+        const data = await todoServices.createTodoService(todoItem);
+
+        res.status(200).json({ data: data, message: "Operation Successfully" });
     } catch (error) {
         next(error)
     }
 }
 
-const getTodo = (req, res, next) => {
+const getTodo = async (req, res, next) => {
     try {
-        res.status(200).json({ message: "Todo get" });
+        const data = await todoServices.getTodoService();
+        res.status(200).json({ data: data, message: "Operation Successfully" });
     } catch (error) {
         next(error)
     }
 }
 
-const updateTodo = (req, res, next) => {
+const updateTodo = async (req, res, next) => {
     try {
-        res.status(200).json({ message: "Todo update" });
+        const todoId = req.params.todoId;
+        const todoItem = req.body;
+
+        const data = await todoServices.updateTodoService(todoId, todoItem);
+
+        res.status(200).json({ data: data, message: "Operation Successfully" });
+
     } catch (error) {
         next(error)
     }
 }
 
-const deleteTodo = (req, res, next) => {
+const deleteTodo = async (req, res, next) => {
     try {
-        res.status(200).json({ message: "Todo delete" });
+        const todoId = req.params.todoId;
+
+        const data = await todoServices.deleteTodoService(todoId);
+
+        res.status(200).json({ data: data, message: "Operation Successfully" });
+
     } catch (error) {
         next(error)
     }

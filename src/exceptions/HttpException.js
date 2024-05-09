@@ -5,4 +5,7 @@ const HttpException = (status, message) => {
     };
 }
 
-module.exports = { HttpException };
+module.exports = {
+    HttpException
+
+};

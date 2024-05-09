@@ -1,57 +1,46 @@
-const todo = require('../models/todo.model');
-
-
-const createTodoService = (todoData) => {
-
-
-}
-
-const getTodoService = () => { }
-
-const updateTodoService = () => { }
-
-const deleteTodoService = () => { }
-
-module.exports = { createTodoService, getTodoService, updateTodoService, deleteTodoService }
-
-
-
-/*
+const todoModel = require('../models/todo.model');
+const { HttpException } = require('../exceptions/HttpException');
 const { mongoose } = require('mongoose');
-const complainModel = require('../models/complain.model');
-const { HttpException } = require('../exceptions/HttpsException');
 
-const createComplain = async (complainData, userData) => {
-    complainData.complainedBy = userData._id;
-    const newComplainDetail = new complainModel(complainData);
+const createTodoService = async (todoData) => {
+    if (!todoData) throw HttpException(409, "Todo Not Created");
 
-    const collectionData = await newComplainDetail.save();
+    const newTodo = new todoModel(todoData);
 
-    return collectionData;
-}
+    const collectionData = await newTodo.save();
 
-const getAllComplainDetails = async () => {
-    const collectionData = await complainModel.find().sort({ createdAt: -1 });
+    if (!collectionData) throw HttpException(409, "Todo Not Created");
 
     return collectionData;
 }
 
-const updateComplainDetail = async (complainId, complainData) => {
-    const updatedCollection = await complainModel.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(complainId) }, { ...complainData }, { new: true });
+const getTodoService = async () => {
 
-    if (!updatedCollection) throw HttpException(409, "Complain Data Not Updated");
+    const data = await todoModel.find();
 
-    return updatedCollection;
+    const result = data.length > 0 ? data : 'No Todo Available';
 
+    return result;
 }
 
-const deleteComplainDetail = async (complainId) => {
-    const deletedCollectionData = await complainModel.findOneAndDelete({ _id: new mongoose.Types.ObjectId(complainId) }, { new: true });
+const updateTodoService = async (todoId, todoItem) => {
 
-    if (!deletedCollectionData) throw HttpException(409, "Complain Not Deleted");
+    const updatedCollectionData = await todoModel.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(todoId) }, { ...todoItem }, { new: true });
+
+    if (!updatedCollectionData) throw HttpException(409, "Todo Not Updated");
+
+    return updatedCollectionData;
+}
+
+const deleteTodoService = async (todoId) => {
+
+    const deletedCollectionData = await todoModel.findOneAndDelete({ _id: new mongoose.Types.ObjectId(todoId) }, { new: true });
+
+    if (!deletedCollectionData) throw HttpException(409, "Todo Not deleted");
 
     return deletedCollectionData;
 }
 
-module.exports = { createComplain, getAllComplainDetails, updateComplainDetail, deleteComplainDetail };
-*/
+module.exports = { createTodoService, getTodoService, updateTodoService, deleteTodoService }
+
+
