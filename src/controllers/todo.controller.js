@@ -20,6 +20,15 @@ const getTodo = async (req, res, next) => {
         next(error)
     }
 }
+const getTodoById = async (req, res, next) => {
+    try {
+        const todoId = req.params.todoId;
+        const data = await todoServices.getTodoByIdService(todoId);
+        res.status(200).json({ data: data, message: "Operation Successfully" });
+    } catch (error) {
+        next(error)
+    }
+}
 
 const updateTodo = async (req, res, next) => {
     try {
@@ -49,4 +58,4 @@ const deleteTodo = async (req, res, next) => {
 }
 
 
-module.exports = { createTodo, getTodo, updateTodo, deleteTodo }
+module.exports = { createTodo, getTodo, getTodoById, updateTodo, deleteTodo }

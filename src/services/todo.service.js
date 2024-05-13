@@ -16,8 +16,15 @@ const createTodoService = async (todoData) => {
 
 const getTodoService = async () => {
 
-    const data = await todoModel.find();
+    const data = await todoModel.find({ isDelete: false });
 
+
+    return data;
+}
+
+const getTodoByIdService = async (todoId) => {
+
+    const data = await todoModel.findOne({ _id: new mongoose.Types.ObjectId(todoId), isDelete: false });
 
     return data;
 }
@@ -33,13 +40,13 @@ const updateTodoService = async (todoId, todoItem) => {
 
 const deleteTodoService = async (todoId) => {
 
-    const deletedCollectionData = await todoModel.findOneAndDelete({ _id: new mongoose.Types.ObjectId(todoId) }, { new: true });
+    const deletedCollectionData = await todoModel.findOneAndUpdate({ _id: new mongoose.Types.ObjectId(todoId) }, { isDelete: true }, { new: true });
 
     if (!deletedCollectionData) throw HttpException(409, "Todo Not deleted");
 
     return deletedCollectionData;
 }
 
-module.exports = { createTodoService, getTodoService, updateTodoService, deleteTodoService }
+module.exports = { createTodoService, getTodoService, getTodoByIdService, updateTodoService, deleteTodoService }
 
 
