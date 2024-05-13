@@ -14,6 +14,14 @@ const createTodoService = async (todoData) => {
     return collectionData;
 }
 
+const getAllTodoService = async () => {
+
+    const data = await todoModel.find();
+
+
+    return data;
+}
+
 const getTodoService = async () => {
 
     const data = await todoModel.find({ isDelete: false });
@@ -47,6 +55,6 @@ const deleteTodoService = async (todoId) => {
     return deletedCollectionData;
 }
 
-module.exports = { createTodoService, getTodoService, getTodoByIdService, updateTodoService, deleteTodoService }
+module.exports = { createTodoService, getAllTodoService, getTodoService, getTodoByIdService, updateTodoService, deleteTodoService }
 
 

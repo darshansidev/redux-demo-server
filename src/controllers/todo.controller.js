@@ -12,6 +12,15 @@ const createTodo = async (req, res, next) => {
     }
 }
 
+const getAllTodo = async (req, res, next) => {
+    try {
+        const data = await todoServices.getAllTodoService();
+        res.status(200).json({ data: data, message: "Operation Successfully" });
+    } catch (error) {
+        next(error)
+    }
+}
+
 const getTodo = async (req, res, next) => {
     try {
         const data = await todoServices.getTodoService();
@@ -58,4 +67,4 @@ const deleteTodo = async (req, res, next) => {
 }
 
 
-module.exports = { createTodo, getTodo, getTodoById, updateTodo, deleteTodo }
+module.exports = { createTodo, getAllTodo, getTodo, getTodoById, updateTodo, deleteTodo }

@@ -4,6 +4,7 @@ const { createTodo, updateTodo, todoId } = require('../validations/todo.validati
 const todoController = require('../controllers/todo.controller');
 
 router.get('/get-todo-list', todoController.getTodo);
+router.get('/get-All-todo-list', todoController.getAllTodo);
 router.get('/get-todo-item/:todoId', todoController.getTodoById);
 router.post('/add-todo-list', validate(createTodo), todoController.createTodo);
 router.put('/update-todo-list/:todoId', validate(todoId), validate(updateTodo), todoController.updateTodo);
