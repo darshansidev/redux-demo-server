@@ -13,6 +13,11 @@ const errorMiddleware = require('./src/middlewares/error.middleware');
 app.use(express.json())
 app.use(cors());
 
+// ---------sample get ---------------------
+app.get('/', (req, res) => {
+    res.send('Hello from Express!');
+});
+
 //--------------Route Call -----------------
 app.use('/todo', todoRoute, errorMiddleware);
 
